@@ -1,0 +1,82 @@
+name: Rating.NG CI/CD Pipeline
+on:
+  push:
+  pull_request:
+    branches: ["*"]
+
+jobs:
+  linter:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./backend/nest-services
+    strategy:
+        matrix:
+          node-version: [16.16.0]
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Lint
+        run: |
+            yarn
+            NODE_ENV=development yarn lint
+  nest-service-unit-test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./backend/nest-services
+    strategy:
+        matrix:
+          node-version: [16.16.0]
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Lint
+        run: |
+            yarn
+            NODE_ENV=development yarn test
+  nest-service-e2e:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./backend/nest-services
+    strategy:
+        matrix:
+          node-version: [16.16.0]
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Lint
+        run: |
+            yarn
+            NODE_ENV=development yarn test:e2e
+
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [16.x]
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Build
+        run: |
+            yarn
+            NODE_ENV=development yarn run build
+

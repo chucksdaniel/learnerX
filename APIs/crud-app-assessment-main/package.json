@@ -1,0 +1,38 @@
+{
+	"name": "crud-app",
+	"version": "1.0.0",
+	"description": "A CRUD application using Node.js, Express.js, and PostgreSQL.",
+	"main": "server.js",
+	"scripts": {
+		"start": "node server.js",
+		"createdb": "npx sequelize-cli db:create",
+		"migrate": "npx sequelize-cli db:migrate",
+		"make:model": "npx sequelize-cli model:generate --name User --attributes name:string,email:string,password:string",
+		"seed:user": "npx sequelize-cli seed:generate --name users",
+		"db:reset": "npx sequelize-cli db:drop && npx sequelize-cli db:create && npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all",
+		"dev": "nodemon server.js"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+ssh://git@github.com/chucksdaniel/crud-app-assessment.git"
+	},
+	"author": "Chukwuma Daniel",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/chucksdaniel/crud-app-assessment/issues"
+	},
+	"homepage": "https://github.com/chucksdaniel/crud-app-assessment#readme",
+	"dependencies": {
+		"bcryptjs": "^2.4.3",
+		"dotenv": "^16.0.1",
+		"express": "^4.18.1",
+		"joi": "^17.6.0",
+		"jsonwebtoken": "^8.5.1",
+		"pg": "^8.7.3",
+		"sequelize": "^6.21.3"
+	},
+	"devDependencies": {
+		"nodemon": "^2.0.19",
+		"sequelize-cli": "^6.4.1"
+	}
+}
